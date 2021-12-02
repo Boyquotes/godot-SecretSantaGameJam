@@ -9,8 +9,6 @@ export_presets.cfg
 .mono/
 data_*/
 
-project.godot
-
 # Text editor related
 test_files/
 .trash/
