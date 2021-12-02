@@ -1,16 +1,16 @@
-using Godot;
+﻿using Godot;
 using System;
 
 public class Player : KinematicBody2D
 {
-    var global = GetNode<Global>("/root/Global");
     [Export] Vector2 Grid = new Vector2(0, 0);
     Vector2 ActualPosition = new Vector2(0, 0);
     Vector2 GridReset = new Vector2(24, 24);
 
     public override void _PhysicsProcess(float delta)
     {
-        if (!Global.onMenu)
+        var global = GetNode<Global>("/root/Global");
+        if (!(bool)global.Get("onMenu"))
         {
             if (Input.IsActionJustPressed("ui_right"))
             {
@@ -29,12 +29,13 @@ public class Player : KinematicBody2D
                 Grid.y += 1;
             }
         }
-        
-        if (Input.IsActionJustReleased("open_inv"))
+
+        if (Input.IsActionJustPressed("game_inv"))
         {
-            Global.onMenu = !Global.onMenu;
+            global.Set("onMenu", !(bool)global.Get("onMenu"));
         }
-        if(Grid.x < 0)
+
+        if (Grid.x < 0)
         {
             Grid.x = 0;
         }
